@@ -2,14 +2,37 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config/config.js');
 var pg = require('pg');
+var bodyParser = require('body-parser');
 
-var pool = new pg.Pool(config.database);
+var pool = new pg.Pool({
+  database: config.database
+});
+
+router.use(bodyParser.json());
 
 // return all heroes
 router.get('/', function (req, res) {
   pool.connect()
     .then(function (client) {
       client.query('SELECT * FROM heroes')
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        });
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+});
+
+router.post('/', function (req, res) {
+  var newHero = req.body;
+  console.log('New Hero: ', newHero);
+  pool.connect()
+    .then(function (client) {
+      client.query('INSERT INTO heroes (persona, alias, power_id) VALUES ($1, $2, $3)',
+        [newHero.persona, newHero.alias, newHero.power_id])
         .then(function (result) {
           client.release();
           res.send(result.rows);

@@ -3,10 +3,14 @@ var router = express.Router();
 var config = require('../config/config.js');
 var pg = require('pg');
 
-var pool = new pg.Pool(config.database);
+var pool = new pg.Pool({
+  database: config.database
+});
 
 // return all super power names
 router.get('/', function (req, res) {
+  console.log('getting powers');
+  console.log(pool);
   pool.connect()
     .then(function (client) {
       client.query('SELECT * FROM super_powers')
