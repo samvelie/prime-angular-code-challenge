@@ -10,7 +10,6 @@ var pool = new pg.Pool({
 // return all super power names
 router.get('/', function (req, res) {
   console.log('getting powers');
-  console.log(pool);
   pool.connect()
     .then(function (client) {
       client.query('SELECT * FROM super_powers')

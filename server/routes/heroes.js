@@ -44,5 +44,24 @@ router.post('/', function (req, res) {
     });
 });
 
+router.delete('/:id', function(req, res) {
+
+  var heroId = req.params.id;
+  console.log('Deleting hero, ', hero.Id);
+  pool.connect()
+    .then(function (client) {
+      client.query('DELETE FROM heroes WHERE id = $1',
+        [heroId])
+        .then(function (result) {
+          client.release();
+          res.sendStatus(200);
+        });
+    })
+    .catch(function (err) {
+      console.log('error on SELECT', err);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;
