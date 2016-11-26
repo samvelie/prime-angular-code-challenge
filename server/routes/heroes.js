@@ -14,7 +14,7 @@ router.use(bodyParser.json());
 router.get('/', function (req, res) {
   pool.connect()
     .then(function (client) {
-      client.query('SELECT * FROM heroes')
+      client.query('SELECT heroes.*, super_powers.name, super_powers.description FROM heroes JOIN super_powers ON heroes.power_id = super_powers.id')
         .then(function (result) {
           client.release();
           res.send(result.rows);
@@ -47,7 +47,7 @@ router.post('/', function (req, res) {
 router.delete('/:id', function(req, res) {
 
   var heroId = req.params.id;
-  console.log('Deleting hero, ', hero.Id);
+  console.log('Deleting hero ID:, ', heroId);
   pool.connect()
     .then(function (client) {
       client.query('DELETE FROM heroes WHERE id = $1',
