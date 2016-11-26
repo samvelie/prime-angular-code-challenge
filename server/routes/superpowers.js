@@ -12,16 +12,16 @@ router.get('/', function (req, res) {
   console.log('getting powers');
   pool.connect()
     .then(function (client) {
-      client.query('SELECT * FROM super_powers')
+      client.query('SELECT * FROM super_powers ORDER BY name ASC')
         .then(function (result) {
           client.release();
           res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
         });
-    })
-    .catch(function (err) {
-      console.log('error on SELECT', err);
-      res.sendStatus(500);
-    });
+    });    
 });
 
 

@@ -18,12 +18,12 @@ router.get('/', function (req, res) {
         .then(function (result) {
           client.release();
           res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
         });
-    })
-    .catch(function (err) {
-      console.log('error on SELECT', err);
-      res.sendStatus(500);
-    });
+    });    
 });
 
 router.post('/', function (req, res) {
@@ -36,16 +36,15 @@ router.post('/', function (req, res) {
         .then(function (result) {
           client.release();
           res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on INSERT', err);
+          res.sendStatus(500);
         });
-    })
-    .catch(function (err) {
-      console.log('error on SELECT', err);
-      res.sendStatus(500);
     });
 });
 
 router.delete('/:id', function(req, res) {
-
   var heroId = req.params.id;
   console.log('Deleting hero ID:, ', heroId);
   pool.connect()
@@ -55,11 +54,11 @@ router.delete('/:id', function(req, res) {
         .then(function (result) {
           client.release();
           res.sendStatus(200);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
         });
-    })
-    .catch(function (err) {
-      console.log('error on SELECT', err);
-      res.sendStatus(500);
     });
 });
 
