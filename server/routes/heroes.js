@@ -23,7 +23,7 @@ router.get('/', function (req, res) {
           console.log('error on SELECT', err);
           res.sendStatus(500);
         });
-    });    
+    });
 });
 
 router.post('/', function (req, res) {
@@ -35,7 +35,7 @@ router.post('/', function (req, res) {
         [newHero.persona, newHero.alias, newHero.power_id])
         .then(function (result) {
           client.release();
-          res.send(result.rows);
+          res.sendStatus(201);
         })
         .catch(function (err) {
           console.log('error on INSERT', err);
@@ -57,6 +57,25 @@ router.delete('/:id', function(req, res) {
         })
         .catch(function (err) {
           console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });
+});
+
+router.put('/:id', function(req, res) {
+  var heroId = req.params.id;
+  var hero = req.body;
+  console.log('Updating hero:, ', hero);
+  pool.connect()
+    .then(function (client) {
+      client.query('UPDATE heroes SET persona = $1, alias = $2, power_id = $3 WHERE id = $4',
+        [hero.persona, hero.alias, hero.power_id, hero.id])
+        .then(function (result) {
+          client.release();
+          res.sendStatus(200);
+        })
+        .catch(function (err) {
+          console.log('error on UPDATE', err);
           res.sendStatus(500);
         });
     });

@@ -20,6 +20,7 @@ Run the sql in `database.sql`.
 * `GET /heroes` : returns all heroes and associated power data.
 * `POST /heroes` : create a new hero in the database. Duplicates are not allowed. Only one power per hero can be stored.
 * `DELETE /heroes/:id` : deletes the specified hero.
+* `PUT /heroes/:id` : updates a given hero. incomplete (requires testing).
 * `GET /powers` : returns all super power names and descriptions.
 
 **Status of 500 is returned on all server errors.**
