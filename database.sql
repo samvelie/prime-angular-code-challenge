@@ -23,5 +23,18 @@ CREATE TABLE heroes (
 	id SERIAL PRIMARY KEY,
 	persona VARCHAR(120) UNIQUE NOT NULL,
 	alias VARCHAR(200) NOT NULL,
-	power_id INTEGER NOT NULL
+	power_id INT REFERENCES super_powers
 );
+
+-- Heroes content
+INSERT INTO heroes (persona, alias, power_id)
+VALUES ('Cipher', 'Alisa Tager', 1),
+('Vulcan', 'Gabriel Summers', 2),
+('Thunderbird', 'John Proudstar', 3),
+('Colossus', 'Piotr Nikolaievitch "Peter" Rasputin', 4),
+('Wolverine', 'James "Logan" Howlett', 5),
+('Cyclops', 'Scott Summers', 6),
+('Overlay', 'Zach Halliwell', 7),
+('Phoenix', 'Jean Grey-Summers', 8),
+('Juggernaut', 'Cain Marko', 9),
+('Match', 'Ben Hamill', 10);
