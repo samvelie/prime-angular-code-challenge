@@ -22,6 +22,11 @@ app.controller('AddHeroController', ['$http', function($http){
       data: heroObject
     }).then(function(response){
         console.log(response);
+        self.newHero = { //this is to clear the inputs again
+          persona: '',
+          alias: '',
+          power_id: 0
+        };
     });
   };
 
