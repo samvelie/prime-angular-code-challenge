@@ -1,20 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var config = require('../config/config.js');
-var pg = require('pg');
-var bodyParser = require('body-parser');
-
-var pool = new pg.Pool({
-  database: config.database
-});
-
-router.use(bodyParser.json());
+var pool = require('../config/database-pool.js'); // Creates database pool, if you need to change database, do it in the config object in this file
 
 // return all heroes
 router.get('/', function (req, res) {
   pool.connect()
     .then(function (client) {
       client.query('SELECT heroes.*, super_powers.name, super_powers.description FROM heroes JOIN super_powers ON heroes.power_id = super_powers.id')
+        .then(function (result) {
+          client.release();
+          res.send(result.rows);
+        })
+        .catch(function (err) {
+          console.log('error on SELECT', err);
+          res.sendStatus(500);
+        });
+    });
+});
+
+// return all super powers
+router.get('/powers', function (req, res) {
+  pool.connect()
+    .then(function (client) {
+      client.query('SELECT * FROM super_powers')
         .then(function (result) {
           client.release();
           res.send(result.rows);
