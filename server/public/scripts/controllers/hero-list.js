@@ -15,6 +15,17 @@ app.controller('HeroListController', ['$http', function($http){
       });
     };
 
+    self.updateHero = function(heroObject){
+      console.log(heroObject);
+      $http({
+        method: 'PUT',
+        url: '/heroes/' + heroObject.id,
+        data: heroObject
+      }).then(function(response){
+          getHeroes();
+      });
+    };
+
     function getHeroes(){
       $http({
         method: 'GET',

@@ -4,6 +4,7 @@
 <table>
   <thead>
     <tr>
+      <th>Update</th>
       <th>Persona</th>
       <th>Alias</th>
       <th>Power Name</th>
@@ -13,8 +14,9 @@
   </thead>
   <tbody>
     <tr ng-repeat="hero in hlc.HeroesArray">
-      <td>{{hero.persona}}</td>
-      <td>{{hero.alias}}</td>
+      <td><button ng-click="hlc.updateHero(hero)">Update Hero</button></td>
+      <td><input ng-model="hero.persona"></td>
+      <td><input ng-model="hero.alias"></td>
       <td>{{hero.name}}</td>
       <td>{{hero.description}}</td>
       <td><button type="button" class="delete" ng-click="hlc.removeHero(hero.id)">X</button></td>

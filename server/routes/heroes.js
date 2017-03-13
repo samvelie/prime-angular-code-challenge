@@ -60,8 +60,8 @@ router.put('/:id', function(req, res) {
   console.log('Updating hero:, ', hero);
   pool.connect()
     .then(function (client) {
-      client.query('UPDATE heroes SET persona = $1, alias = $2, power_id = $3 WHERE id = $4',
-        [hero.persona, hero.alias, hero.power_id, hero.id])
+      client.query('UPDATE heroes SET persona = $1, alias = $2 WHERE id = $3;',
+        [hero.persona, hero.alias, hero.id])
         .then(function (result) {
           client.release();
           res.sendStatus(200);
