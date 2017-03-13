@@ -18,22 +18,6 @@ router.get('/', function (req, res) {
     });
 });
 
-// return all super powers
-router.get('/powers', function (req, res) {
-  pool.connect()
-    .then(function (client) {
-      client.query('SELECT * FROM super_powers')
-        .then(function (result) {
-          client.release();
-          res.send(result.rows);
-        })
-        .catch(function (err) {
-          console.log('error on SELECT', err);
-          res.sendStatus(500);
-        });
-    });
-});
-
 router.post('/', function (req, res) {
   var newHero = req.body;
   console.log('New Hero: ', newHero);
