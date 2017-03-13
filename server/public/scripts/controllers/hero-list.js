@@ -5,6 +5,16 @@ app.controller('HeroListController', ['$http', function($http){
     getHeroes();
     self.HeroesArray = [];
 
+    self.removeHero = function(heroID) {
+      $http({
+        method: 'DELETE',
+        url: '/heroes/' + heroID
+      }).then(function(response){
+        console.log(response);
+        getHeroes();
+      });
+    };
+
     function getHeroes(){
       $http({
         method: 'GET',
