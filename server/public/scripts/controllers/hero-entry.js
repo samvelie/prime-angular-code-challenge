@@ -13,7 +13,6 @@ app.controller('AddHeroController', ['$http', function($http){
   };
 
   self.addHero = function(){
-
     console.log("addHero clicked");
     var heroObject = self.newHero;
     console.log(heroObject);

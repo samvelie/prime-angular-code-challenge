@@ -9,7 +9,7 @@ power_id : this is the hero's main super power as chosen from a list of possible
   <input type="text" placeholder="Alias" ng-model="ah.newHero.alias">
   <label for="selectPower">Select Power #</label>
   <select id="selectPower" ng-model="ah.newHero.power_id">
-    <option ng-repeat="power in ah.powersArray">{{power.id}}</option>
+    <option ng-repeat="power in ah.powersArray" ng-value="power.id">{{power.name}}</option>
   </select>
   <button ng-click="ah.addHero()">Add Hero</button>
 </form>
