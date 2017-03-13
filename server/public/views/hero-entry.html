@@ -1,1 +1,14 @@
 <h2>Add Heroes</h2>
+
+<!-- persona : this is the hero's super hero name. It must be unique.
+alias : this is the hero's true name, if known.
+power_id : this is the hero's main super power as chosen from a list of possible powers. The power_id can just be a number input for base mode (pro mode upgrades this to a dropdown select). This power_id must match an id in the super_powers table. Not ideal because the user will have to guess the id for the power, but good enough for now. -->
+
+<form>
+  <input type="text" placeholder="Persona" ng-model="ah.newHero.persona">
+  <input type="text" placeholder="Alias" ng-model="ah.newHero.alias">
+  <select ng-model="ah.newHero.power_id">
+    <option ng-repeat="power in ah.powersArray">{{power.id}}</option>
+  </select>
+  <button ng-click="ah.addHero()"> Add Hero</button>
+</form>
